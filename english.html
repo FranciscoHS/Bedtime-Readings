@@ -19,6 +19,11 @@
             width: 100%; /* Optional: you can set the width of the audio player */
             margin-top: 10px; /* Optional: adds some space between the list and the player */
         }
+        .audio-link {
+            cursor: pointer;
+            color: blue; /* or any other color */
+            text-decoration: underline;
+        }
     </style>
 </head>
 <body>
@@ -29,18 +34,41 @@
             <li>Another story here</li>
         </ul>
         
-        <h1>Poems</h1>
-        <ul>
-            <li>One poem here</li>
-            <li>Another poem here</li>
-            <!-- Insert the audio element below the poem you want -->
-            <li>
-                <audio controls>
-                    <source src="readings/iwastryingtodescribeyou.mpga" type="audio/mpeg">
-                    Your browser does not support the audio element.
-                </audio>
-            </li>
-        </ul>
-    </div>
+<h1>Poems</h1>
+<ul>
+    <li>One poem here</li>
+    <li>Another poem here</li>
+    <li class="audio-link" data-audio="readings/iwastryingtodescribeyou.mpga">I Was Trying to Describe You</li>
+    <!-- Add more list items here for other audio files -->
+</ul>
+
+<!-- Hidden audio player -->
+<audio id="audio-player" controls style="display: none;">
+    <source id="audio-source" src="" type="audio/mpeg">
+    Your browser does not support the audio element.
+</audio>
+
+</div>
+<script>
+    // Get all elements with the class 'audio-link'
+    const audioLinks = document.querySelectorAll('.audio-link');
+
+    audioLinks.forEach(link => {
+        link.addEventListener('click', function() {
+            // Get the audio file from the data attribute
+            const audioFile = this.getAttribute('data-audio');
+
+            // Set the source of the audio player and display it
+            const audioPlayer = document.getElementById('audio-player');
+            const audioSource = document.getElementById('audio-source');
+            audioSource.src = audioFile;
+            audioPlayer.load(); // Reload the audio element to update the source
+            audioPlayer.style.display = 'block'; // Show the player
+
+            // Optional: Scroll to the audio player if it's not fully visible
+            audioPlayer.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        });
+    });
+</script>
 </body>
 </html>
