@@ -15,6 +15,10 @@
             margin: auto;
             width: 60%;
         }
+        audio {
+            width: 100%; /* Optional: you can set the width of the audio player */
+            margin-top: 10px; /* Optional: adds some space between the list and the player */
+        }
     </style>
 </head>
 <body>
@@ -29,8 +33,14 @@
         <ul>
             <li>One poem here</li>
             <li>Another poem here</li>
+            <!-- Insert the audio element below the poem you want -->
+            <li>
+                <audio controls>
+                    <source src="readings/iwastryingtodescribeyou.mpga" type="audio/mpeg">
+                    Your browser does not support the audio element.
+                </audio>
+            </li>
         </ul>
     </div>
 </body>
 </html>
-
