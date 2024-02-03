@@ -15,8 +15,10 @@ ul, ol {
 }
 
 .reading-info {
+    display: none; /* Hide the description initially */
     margin-top: 5px;
-    text-align: left; /* or 'center' if preferred */
+    margin-bottom: 5px;
+    text-align: center; /* or 'center' if preferred */
     font-size: 14px; /* Adjust as needed */
     color: #333; /* Text color */
     /* Other styling as needed */
