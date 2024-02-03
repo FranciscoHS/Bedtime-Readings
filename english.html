@@ -50,25 +50,35 @@
 
 </div>
 <script>
+    // Variables to keep track of the currently playing audio and its link
+    let currentlyPlaying = null;
+    let currentLink = null;
+
     // Get all elements with the class 'audio-link'
     const audioLinks = document.querySelectorAll('.audio-link');
 
     audioLinks.forEach(link => {
         link.addEventListener('click', function() {
-            // Get the audio file from the data attribute
-            const audioFile = this.getAttribute('data-audio');
-
-            // Set the source of the audio player and display it
             const audioPlayer = document.getElementById('audio-player');
             const audioSource = document.getElementById('audio-source');
-            audioSource.src = audioFile;
-            audioPlayer.load(); // Reload the audio element to update the source
-            audioPlayer.style.display = 'block'; // Show the player
+            const audioFile = this.getAttribute('data-audio');
 
-            // Optional: Scroll to the audio player if it's not fully visible
-            audioPlayer.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            if(currentLink === this && !audioPlayer.paused) {
+                // If the current link is clicked again and the audio is playing, pause and hide the player
+                audioPlayer.pause();
+                audioPlayer.style.display = 'none';
+                currentLink = null; // Reset the current link
+                currentlyPlaying = null; // Reset the currently playing audio
+            } else {
+                // If a different link is clicked, or if the audio was paused, play the new audio
+                audioSource.src = audioFile;
+                audioPlayer.load(); // Reload the audio element to update the source
+                audioPlayer.style.display = 'block'; // Show the player
+                audioPlayer.play(); // Start playing the audio
+                currentLink = this; // Update the current link
+                currentlyPlaying = audioFile; // Update the currently playing audio
+            }
         });
     });
-</script>
-</body>
+</script></body>
 </html>
