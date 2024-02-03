@@ -13,3 +13,11 @@ ul, ol {
     padding: 0;
     margin: 0;
 }
+
+.reading-info {
+    margin-top: 5px;
+    text-align: left; /* or 'center' if preferred */
+    font-size: 14px; /* Adjust as needed */
+    color: #333; /* Text color */
+    /* Other styling as needed */
+}
