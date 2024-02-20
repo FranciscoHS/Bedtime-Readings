@@ -60,46 +60,51 @@
 
 </div>
 <script>
-    // Variable to keep track of the currently visible audio and its description
-    let currentVisibleId = null;
+    document.addEventListener('DOMContentLoaded', function () {
+        // Variable to keep track of the currently visible audio and its description
+        let currentVisibleId = null;
 
-    // Get all elements with the class 'audio-link'
-    const audioLinks = document.querySelectorAll('.audio-link');
+        // Get all elements with the class 'audio-link'
+        const audioLinks = document.querySelectorAll('.audio-link');
 
-    audioLinks.forEach(link => {
-        link.addEventListener('click', function() {
-            const audioPlayer = document.getElementById('audio-player');
-            const audioSource = document.getElementById('audio-source');
-            const audioFile = this.getAttribute('data-audio');
-            const infoId = this.getAttribute('data-info');
-            const infoDiv = document.getElementById(infoId);
+        audioLinks.forEach(link => {
+            link.addEventListener('click', function() {
+                const audioPlayer = document.getElementById('audio-player');
+                const audioSource = document.getElementById('audio-source');
+                const audioFile = this.getAttribute('data-audio');
+                const infoId = this.getAttribute('data-info');
+                const infoDiv = document.getElementById(infoId);
 
-            if(currentVisibleId === infoId) {
-                // If the current link is clicked again, toggle the player and the info
-                if(audioPlayer.style.display === 'none') {
+                // Move the audio player below the current info div
+                infoDiv.insertAdjacentElement('afterend', audioPlayer);
+
+                if(currentVisibleId === infoId) {
+                    // If the current link is clicked again, toggle the player and the info
+                    if(audioPlayer.style.display === 'none') {
+                        audioSource.src = audioFile;
+                        audioPlayer.load();
+                        audioPlayer.style.display = 'block';
+                        infoDiv.style.display = 'block';
+                        audioPlayer.play();
+                    } else {
+                        audioPlayer.pause();
+                        audioPlayer.style.display = 'none';
+                        infoDiv.style.display = 'none';
+                    }
+                } else {
+                    // If a different link is clicked, show the new audio and info
+                    if(currentVisibleId) {
+                        // Hide previous info
+                        document.getElementById(currentVisibleId).style.display = 'none';
+                    }
                     audioSource.src = audioFile;
                     audioPlayer.load();
                     audioPlayer.style.display = 'block';
                     infoDiv.style.display = 'block';
                     audioPlayer.play();
-                } else {
-                    audioPlayer.pause();
-                    audioPlayer.style.display = 'none';
-                    infoDiv.style.display = 'none';
+                    currentVisibleId = infoId; // Update the currently visible id
                 }
-            } else {
-                // If a different link is clicked, show the new audio and info
-                if(currentVisibleId) {
-                    // Hide previous info
-                    document.getElementById(currentVisibleId).style.display = 'none';
-                }
-                audioSource.src = audioFile;
-                audioPlayer.load();
-                audioPlayer.style.display = 'block';
-                infoDiv.style.display = 'block';
-                audioPlayer.play();
-                currentVisibleId = infoId; // Update the currently visible id
-            }
+            });
         });
     });
 </script>
