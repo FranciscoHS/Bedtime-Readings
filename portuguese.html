@@ -15,22 +15,90 @@
             margin: auto;
             width: 60%;
         }
+        audio {
+            width: 100%; /* Optional: you can set the width of the audio player */
+            margin-top: 10px; /* Optional: adds some space between the list and the player */
+        }
+        .audio-link {
+            cursor: pointer;
+            color: blue; /* or any other color */
+            text-decoration: underline;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>Histórias</h1>
         <ul>
-            <li>One story here</li>
-            <li>Another story here</li>
-        </ul>
+    <li>
+        <span class="audio-link" data-audio="readings/onadairyfarm.mpga" data-info="infototo">A domesticação de Toto</span>
+        <div id="infototo" class="reading-info">I wrote this story a couple of years ago, back when a few friends and I had a literary website. I was trying to go for a story that's about vibes more than plot, inspired by lo-fi girl. I'd say such a story should be a good fit for bedtime, but you can let me know if that's the case... Maybe once you learn some more Portuguese.</div>
+    </li>
+    </ul>
         
-        <h1>Poemas</h1>
-        <ul>
-            <li>One poem here</li>
-            <li>Another poem here</li>
-        </ul>
-    </div>
+<h1>Poemas</h1>
+<ul>
+    <li>
+        <span class="audio-link" data-audio="readings/aniversario.mpga" data-info="infoaniversario">Aniversário</span>
+        <div id="infoaniversario" class="reading-info">This is a poem by Álvaro de Campos, one of Fernando Pessoa's best-known heteronyms. It's about someone reminiscing on how their (and other people's) attitude towards their birthday has changed as they have aged. It's... raw?</div>
+    </li>
+    <li>
+        <span class="audio-link" data-audio="readings/quandovieraprimavera.mpga" data-info="infoprimavera">Quando vier a Primavera</span>
+        <div id="infoprimavera" class="reading-info">This is a poem by Alberto Caeiro, one of Fernando Pessoa's best-known heteronyms. It's something of a celebration of the meaninglessness of life. Spring will come whether one is alive to see it or not, and that is good for Spring is good irrespective of whether someone sees it.</div>
+    </li>
+
+</ul>
+
+<!-- Hidden audio player -->
+<audio id="audio-player" controls style="display: none;">
+    <source id="audio-source" src="" type="audio/mpeg">
+    Your browser does not support the audio element.
+</audio>
+
+</div>
+<script>
+    // Variable to keep track of the currently visible audio and its description
+    let currentVisibleId = null;
+
+    // Get all elements with the class 'audio-link'
+    const audioLinks = document.querySelectorAll('.audio-link');
+
+    audioLinks.forEach(link => {
+        link.addEventListener('click', function() {
+            const audioPlayer = document.getElementById('audio-player');
+            const audioSource = document.getElementById('audio-source');
+            const audioFile = this.getAttribute('data-audio');
+            const infoId = this.getAttribute('data-info');
+            const infoDiv = document.getElementById(infoId);
+
+            if(currentVisibleId === infoId) {
+                // If the current link is clicked again, toggle the player and the info
+                if(audioPlayer.style.display === 'none') {
+                    audioSource.src = audioFile;
+                    audioPlayer.load();
+                    audioPlayer.style.display = 'block';
+                    infoDiv.style.display = 'block';
+                    audioPlayer.play();
+                } else {
+                    audioPlayer.pause();
+                    audioPlayer.style.display = 'none';
+                    infoDiv.style.display = 'none';
+                }
+            } else {
+                // If a different link is clicked, show the new audio and info
+                if(currentVisibleId) {
+                    // Hide previous info
+                    document.getElementById(currentVisibleId).style.display = 'none';
+                }
+                audioSource.src = audioFile;
+                audioPlayer.load();
+                audioPlayer.style.display = 'block';
+                infoDiv.style.display = 'block';
+                audioPlayer.play();
+                currentVisibleId = infoId; // Update the currently visible id
+            }
+        });
+    });
+</script>
 </body>
 </html>
-
