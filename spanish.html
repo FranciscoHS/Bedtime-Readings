@@ -15,17 +15,27 @@
             margin: auto;
             width: 60%;
         }
+        audio {
+            width: 100%; /* Optional: you can set the width of the audio player */
+            margin-top: 10px; /* Optional: adds some space between the list and the player */
+        }
+        .audio-link {
+            cursor: pointer;
+            color: blue; /* or any other color */
+            text-decoration: underline;
+        }
     </style>
 </head>
 <body>
     <div class="container">
-<h1>Poems</h1>
-<ul>
-    <li>
-        <span class="audio-link" data-audio="readings/odaalatomo.mpga" data-info="infooda">Oda al átomo</span>
-        <div id="infooda" class="reading-info">This poem was mentioned in The Idiot by Elif Batuman, where the main character was fascinated by it. I was maybe not as fascinated as she was, but I still like it.</div>
-    </li>
-</ul>
+    <a href="index.html" style="text-decoration: underline; color: blue;">Go back!</a>
+    <h1>Poems</h1>
+    <ul>
+        <li>
+            <span class="audio-link" data-audio="readings/odaalatomo.mpga" data-info="infooda">Oda al átomo</span>
+            <div id="infooda" class="reading-info">This poem was mentioned in The Idiot by Elif Batuman, where the main character was fascinated by it. I was maybe not as fascinated as she was, but I still like it.</div>
+        </li>
+    </ul>
 
 <!-- Hidden audio player -->
 <audio id="audio-player" controls style="display: none;">
